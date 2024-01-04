@@ -13,22 +13,23 @@ while (<>) {
     chomp;
     my ( $city, $temp ) = split(/;/, $_ );
     if ($Data->{$city}) {
-    $Data->{$city}[0] = $temp if $temp < $Data->{$city}[0];  # min
-    $Data->{$city}[1] = $Data->{$city}[1]*$Data->{$city}[3]/($Data->{$city}[3]+1) + $temp/($Data->{$city}[3]+1); # avg
-    $Data->{$city}[2] = $temp if $temp > $Data->{$city}[2];  # max
-    $Data->{$city}[3]++;
+	$Data->{$city}{min} = $temp if $temp < $Data->{$city}{min};  # min
+	$Data->{$city}{sum} = $Data->{$city}{sum}+=$temp;
+	$Data->{$city}{max} = $temp if $temp > $Data->{$city}{max};  # max
+	$Data->{$city}{count}++;
 		   
 	    
     } else {
-	# I used an array reference here, in the hopes it would be slightly faster. Using a hashref instead would be more readable
+
 	#                   min,  avg,   max, count
-	$Data->{$city} = [$temp,$temp, $temp, 1];
+	$Data->{$city} = {min=>$temp, max=>$temp ,sum=>$temp, count=>1};
     } 
 }
 
 my @results;
 for my $city (sort {$a cmp $b} keys %$Data){
-    push @results, "$city=".join('/', map {sprintf("%.1f", $_)} (@{$Data->{$city}}[0,1,2]));
+    my $avg = $Data->{$city}{sum}/$Data->{$city}{count};
+    push @results, "$city=".join('/', map {sprintf("%.1f", $_)} ($Data->{$city}{min}, $avg, $Data->{$city}{max}));
    
 }
 say '{'.join(', ',@results).'}';
