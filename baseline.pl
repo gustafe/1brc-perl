@@ -13,15 +13,20 @@ while (<>) {
     chomp;
     my ( $city, $temp ) = split(/;/, $_ );
     if ($Data->{$city}) {
-	$Data->{$city}{min} = $temp if $temp < $Data->{$city}{min};  # min
+	
+	if ($temp > $Data->{$city}{max}) {
+	    $Data->{$city}{max} = $temp
+	} elsif ($temp < $Data->{$city}{min}) {
+	    $Data->{$city}{min} = $temp
+	}
+	
 	$Data->{$city}{sum} = $Data->{$city}{sum}+=$temp;
-	$Data->{$city}{max} = $temp if $temp > $Data->{$city}{max};  # max
 	$Data->{$city}{count}++;
 		   
 	    
     } else {
 
-	#                   min,  avg,   max, count
+	# initialize city
 	$Data->{$city} = {min=>$temp, max=>$temp ,sum=>$temp, count=>1};
     } 
 }
