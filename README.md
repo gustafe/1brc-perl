@@ -7,6 +7,8 @@ To get the full input file, clone that repo according the instructions and run t
 
 I have included the first 1M rows in the zipped file "test.zip".
 
+The file `result.txt` contains the output of the reference Java application.
+
 ### Some numbers
 
 Java reference implementation in the original repo runs in around 3m
