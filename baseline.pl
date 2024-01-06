@@ -10,8 +10,8 @@ binmode(STDOUT, ':encoding(UTF-8)');
 binmode(STDIN, ':encoding(UTF-8)');
 my $Data;
 while (<>) {
-    chomp;
     my ( $city, $temp ) = split(/;/, $_ );
+
     if ($Data->{$city}) {
 	
 	if ($temp > $Data->{$city}{max}) {
@@ -31,6 +31,7 @@ while (<>) {
     } 
 }
 
+
 my @results;
 for my $city (sort {$a cmp $b} keys %$Data){
     my $avg = $Data->{$city}{sum}/$Data->{$city}{count};
@@ -38,3 +39,4 @@ for my $city (sort {$a cmp $b} keys %$Data){
    
 }
 say '{'.join(', ',@results).'}';
+say scalar @results;
