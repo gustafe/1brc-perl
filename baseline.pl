@@ -39,4 +39,4 @@ for my $city (sort {$a cmp $b} keys %$Data){
    
 }
 say '{'.join(', ',@results).'}';
-say scalar @results;
+
