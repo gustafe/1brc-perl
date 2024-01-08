@@ -44,7 +44,7 @@ for my $city (sort {$a cmp $b} keys %$Data){
 say '{'.join(', ',@results).'}';
 
 is(join('|', @results[0..2]),        "Abha=-28.2/18.0/71.3|Abidjan=-24.7/26.0/75.3|Abéché=-23.5/29.4/85.9",          "first 3 ok");
-is(join('|', @results[207,208,209]), "London=-34.7/11.3/61.5|Los Angeles=-29.0/18.6/68.2|Louisville=-37.9/13.9/65.3","  mid 3 ok");
+is(join('|', @results[206,207,208]), "London=-34.7/11.3/61.5|Los Angeles=-29.0/18.6/68.2|Louisville=-37.9/13.9/65.3","  mid 3 ok");
 is(join('|', @results[-3,-2,-1]),    "Zürich=-46.1/9.3/63.2|Ürümqi=-45.2/7.4/58.2|İzmir=-37.7/17.9/64.4",            " last 3 ok");
 done_testing();
 
